@@ -1,6 +1,6 @@
 // Typography.swift
 // DesignSystem
-// 타이포그래피 스타일 정의 (예시)
+// 타이포그래피 스타일 정의
 
 import SwiftUI
 

@@ -39,6 +39,37 @@ public struct Toast: View {
     }
 }
 
+extension View {
+    public func toast(message: String, isVisible: Binding<Bool>, backgroundColor: Color = .primary, foregroundColor: Color = .white, duration: Double = 2.0) -> some View {
+        self.modifier(ToastModifier(message: message, isVisible: isVisible, backgroundColor: backgroundColor, foregroundColor: foregroundColor, duration: duration))
+    }
+}
+
+struct ToastModifier: ViewModifier {
+    let message: String
+    @Binding var isVisible: Bool
+    var backgroundColor: Color
+    var foregroundColor: Color
+    var duration: Double
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            Toast(message: message, isVisible: $isVisible, backgroundColor: backgroundColor, foregroundColor: foregroundColor, duration: duration)
+                .padding(.bottom, Spacing.lg.rawValue)
+        }
+        .animation(.easeInOut, value: isVisible)
+        .onAppear {
+            if isVisible {
+                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                    withAnimation { isVisible = false }
+                }
+            }
+        }
+    }
+}
+
+
 #if DEBUG
 #Preview {
     struct ToastDemo: View {

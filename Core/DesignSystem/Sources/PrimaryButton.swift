@@ -1,6 +1,6 @@
 // PrimaryButton.swift
 // DesignSystem
-// SwiftUI용 Primary 버튼 컴포넌트 예시
+// SwiftUI용 Primary 버튼 컴포넌트
 
 import SwiftUI
 
